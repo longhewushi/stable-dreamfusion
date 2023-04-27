@@ -1,5 +1,5 @@
-FROM nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
-
+# FROM nvidia/cuda:11.6.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:11.7.0-cudnn8-devel-ubuntu20.04
 # Remove any third-party apt sources to avoid issues with expiring keys.
 RUN rm -f /etc/apt/sources.list.d/*.list
 
@@ -22,7 +22,6 @@ RUN apt-get install -y \
     libglib2.0-0 \
  && rm -rf /var/lib/apt/lists/*
 
-
 # Create a working directory
 RUN mkdir /app
 WORKDIR /app
@@ -30,8 +29,9 @@ WORKDIR /app
 RUN cd /app
 RUN git clone https://github.com/ashawkey/stable-dreamfusion.git
 
-
-RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+# conda install pytorch==1.13.0 torchvision==0.14.0 torchaudio==0.13.0 pytorch-cuda=11.6 -c pytorch -c nvidia
+# RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
+RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu117
 
 WORKDIR /app/stable-dreamfusion
 
@@ -44,10 +44,9 @@ RUN pip3 install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindin
 RUN pip3 install git+https://github.com/openai/CLIP.git
 RUN bash scripts/install_ext.sh
 
+RUN pip3 install -i https://pypi.taichi.graphics/simple/ taichi-nightly
 
-
-
+# RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 -y
 
 # Set the default command to python3
-#CMD ["python3"]
-
+# CMD ["python3 main.py --text \"a hamburger\" --workspace trial -O"]
