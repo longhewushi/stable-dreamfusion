@@ -27,7 +27,7 @@ RUN mkdir /app
 WORKDIR /app
 
 RUN cd /app
-RUN git clone https://github.com/ashawkey/stable-dreamfusion.git
+RUN git clone https://github.com/longhewushi/stable-dreamfusion.git
 
 # conda install pytorch==1.13.0 torchvision==0.14.0 torchaudio==0.13.0 pytorch-cuda=11.6 -c pytorch -c nvidia
 # RUN pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu116
